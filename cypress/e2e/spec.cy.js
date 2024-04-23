@@ -8,14 +8,15 @@ context("Create order", () => {
     cy.visit("https://crm.internal.paradisemobile.bm/pml-crm/#/login");
     cy.get('input[placeholder="Username"]').type("devmail@paradisemobile.com"); // CRM USER EMAIL
     cy.get('input[placeholder="Password"]').type("M@tadordeCasua1"); // CRM USER PASSWORD
-    cy.get("button").contains("Sign in").click();
+    cy.get("button").contains("Login").click();
     cy.wait("@portalGateway");
     cy.get("#spinner").should("not.exist");
   });
 
   var i = 0;
-  for (i = 0; i < 1; i++) {
+  for (i = 0; i < 29; i++) {
     it("Should add a line. Run number: " + i, () => {
+      cy.wait(15000);
       cy.intercept(
         "GET",
         "**/api-gateway1/mpportalgateway/api/v1/customers?**"
@@ -46,7 +47,7 @@ context("Create order", () => {
 
       cy.get(
         ".customer-border-box > .search-box-section > app-search-box > .search-box > .ng-untouched"
-      ).type("100001761"); // USER ID
+      ).type("100001744"); // USER ID
       cy.wait("@getCustomers");
 
       cy.get(".mat-row > .cdk-column-name").first().click();
